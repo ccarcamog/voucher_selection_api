@@ -65,7 +65,7 @@ For this challenge, I will use 3 basic classes that `Flask` provides:
 2. `request`: To read the input JSON coming from each petition to the API
 3. `jsonify`: To cast the output result of the API as a JSON response
 
-#### Running the using Docker
+#### Running the API using Docker
 1. Install ``Docker`` in your machine if you don't have it yet. You can check [here]('https://docs.docker.com/get-docker/) for more information about installation.
 2. Clone project repo into your local from GitHub:
 ```bash
