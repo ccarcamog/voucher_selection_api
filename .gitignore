@@ -2,3 +2,4 @@
 /.ipynb_checkpoints/
 /.coverage
 /.pytest_cache/
+/test/.pytest_cache/
