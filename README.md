@@ -65,7 +65,73 @@ For this challenge, I will use 3 basic classes that `Flask` provides:
 2. `request`: To read the input JSON coming from each petition to the API
 3. `jsonify`: To cast the output result of the API as a JSON response
 
-#### Running the API
+#### Running the using Docker
+1. Install ``Docker`` in your machine if you don't have it yet. You can check [here]('https://docs.docker.com/get-docker/) for more information about installation.
+2. Clone project repo into your local from GitHub:
+```bash
+git clone https://github.com/ccarcamog/voucher_selection_api
+```
+3. Open a cmd/terminal window in your machine and navigate to the path you cloned the repo
+4. Create ``Docker`` image in your local using this command:
+```bash
+docker compose up
+```
+Docker will start to download the all needed packages: An OS image (``alpine``), Java 11 and Python.
+Then, It will start to install all Python libs needed to execute the API. Finally, it will
+start the API. In te console/terminal you should see something like this:
+```bash
+voucher_selection_api-app-1  | ============================= test session starts ==============================
+voucher_selection_api-app-1  | platform linux -- Python 3.9.7, pytest-7.1.1, pluggy-1.0.0
+voucher_selection_api-app-1  | rootdir: /voucher_selection_api
+voucher_selection_api-app-1  | plugins: mock-3.7.0, cov-3.0.0
+voucher_selection_api-app-1  | collected 11 items
+voucher_selection_api-app-1  | 
+voucher_selection_api-app-1  | test/api_test.py ...........                                             [100%]
+voucher_selection_api-app-1  | 
+voucher_selection_api-app-1  | ----------- coverage: platform linux, python 3.9.7-final-0 -----------
+voucher_selection_api-app-1  | Name                    Stmts   Miss  Cover
+voucher_selection_api-app-1  | -------------------------------------------
+voucher_selection_api-app-1  | api/__init__.py             3      0   100%
+voucher_selection_api-app-1  | api/model/Customer.py      39      0   100%
+voucher_selection_api-app-1  | api/model/Voucher.py       23      0   100%
+voucher_selection_api-app-1  | api/model/utils.py         41     12    71%
+voucher_selection_api-app-1  | api/views.py               18      0   100%
+voucher_selection_api-app-1  | -------------------------------------------
+voucher_selection_api-app-1  | TOTAL                     124     12    90%
+voucher_selection_api-app-1  | 
+voucher_selection_api-app-1  | 
+voucher_selection_api-app-1  | ============================== 11 passed in 5.16s ==============================
+voucher_selection_api-app-1  |  * Serving Flask app 'api' (lazy loading)
+voucher_selection_api-app-1  |  * Environment: production
+voucher_selection_api-app-1  |    WARNING: This is a development server. Do not use it in a production deployment.
+voucher_selection_api-app-1  |    Use a production WSGI server instead.
+voucher_selection_api-app-1  |  * Debug mode: off
+voucher_selection_api-app-1  | WARNING: An illegal reflective access operation has occurred
+voucher_selection_api-app-1  | WARNING: Illegal reflective access by org.apache.spark.unsafe.Platform (file:/usr/lib/python3.9/site-packages/pyspark/jars/spark-unsafe_2.12-3.2.1.jar) to constructor java.nio.DirectByteBuffer(long,int)
+voucher_selection_api-app-1  | WARNING: Please consider reporting this to the maintainers of org.apache.spark.unsafe.Platform
+voucher_selection_api-app-1  | WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+voucher_selection_api-app-1  | WARNING: All illegal access operations will be denied in a future release
+voucher_selection_api-app-1  | Using Spark's default log4j profile: org/apache/spark/log4j-defaults.properties
+voucher_selection_api-app-1  | Setting default log level to "WARN".
+voucher_selection_api-app-1  | To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+voucher_selection_api-app-1  | 22/04/06 05:47:56 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+voucher_selection_api-app-1  |  * Running on all addresses (0.0.0.0)
+voucher_selection_api-app-1  |    WARNING: This is a development server. Do not use it in a production deployment.
+voucher_selection_api-app-1  |  * Running on http://127.0.0.1:5000
+voucher_selection_api-app-1  |  * Running on http://172.20.0.2:5000 (Press CTRL+C to quit)
+
+```
+API will be ready to be used, you can check it in another terminal (Or in an API platform like _Postman_), check the API status:
+```bash
+curl http://0.0.0.0:5001/check_status
+```
+
+You should receive an Active message:
+```bash
+Active!
+```
+
+#### Running the API manually without Docker
 1. Install `python3` and `java 11` in your machine if you don't have it yet. You can check [here]('https://www.python.org/downloads/) for more information about installation.
 2. Create a `virtualenv` from console and access it:
 
@@ -101,9 +167,11 @@ Active!
 #### HTTP API Endpoints
 This API will handle 2 endpoints, one to check API status and the mainly one to process the input dataset.
 ##### `check_status` endpoint
-<p>Returns a string if API is running properly</p>
+Returns a string if API is running properly
+
 As API status is a read-only operation, and no server resource will need to be modified, this is a `GET` method.
-<p>It does not need any parameter, just call it by its name:</p>
+
+It does not need any parameter, just call it by its name:
 
 ```bash
 curl http://127.0.0.1:5000/check_status
