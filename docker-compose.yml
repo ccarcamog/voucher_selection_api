@@ -1,0 +1,10 @@
+services:
+  app:
+    build: .
+    environment:
+      - FLASK_APP=api
+    command: python -m flask run
+    ports:
+      - "5001:5000"
+    volumes:
+      - .:/python-flask
